@@ -1,6 +1,7 @@
 #include "main.h"
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
+pros::Controller partner(pros::E_CONTROLLER_PARTNER);
 pros::Motor back_left_drive(19);
 pros::Motor front_left_drive(20);
 pros::Motor back_right_drive(9, true);
@@ -12,6 +13,11 @@ pros::Motor right_lift(1);
 pros::Motor left_lift(11, true);
 
 pros::Motor claw(12);
+
+// Partner motors
+
+pros::Motor partner_left_drive(21);
+pros::Motor partner_right_drive(22);
 
 /**
  * A callback function for LLEMU's center button.
@@ -149,6 +155,14 @@ void opcontrol() {
 		} else {
 			claw = 0;
 		}
+
+		// Partner controller code
+
+		int partner_left_y = partner.get_analog(ANALOG_LEFT_Y);
+		int partner_right_y = partner.get_analog(ANALOG_RIGHT_Y);
+
+		partner_left_drive = partner_left_y;
+		partner_right_drive = partner_right_y;
 
 		pros::delay(20);
 	}
