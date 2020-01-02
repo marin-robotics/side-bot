@@ -2,22 +2,19 @@
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Controller partner(pros::E_CONTROLLER_PARTNER);
-pros::Motor back_left_drive(19);
-pros::Motor front_left_drive(20);
-pros::Motor back_right_drive(9, true);
-pros::Motor front_right_drive(2, true);
+pros::Motor back_left_drive(17);
+pros::Motor front_left_drive(19);
+pros::Motor back_right_drive(10, true);
+pros::Motor front_right_drive(1, true);
 
-pros::Motor strafe_drive(3);
+pros::Motor lift(2);
 
-pros::Motor right_lift(1);
-pros::Motor left_lift(11, true);
-
-pros::Motor claw(12);
+pros::Motor claw(18);
 
 // Partner motors
 
-pros::Motor partner_left_drive(21);
-pros::Motor partner_right_drive(22);
+pros::Motor partner_left_drive(3);
+pros::Motor partner_right_drive(4);
 
 /**
  * A callback function for LLEMU's center button.
@@ -105,6 +102,7 @@ void opcontrol() {
 	// When true, claw will be run at -15 to hold a cube
 	bool claw_hold = false;
 	int current_lift_power = 0;
+
 	while (true) {
 		int drive_left = master.get_analog(ANALOG_LEFT_Y);
 		int drive_right = master.get_analog(ANALOG_RIGHT_Y);
@@ -112,14 +110,6 @@ void opcontrol() {
 		front_left_drive = drive_left;
 		back_right_drive = drive_right;
 		front_right_drive = drive_right;
-
-		int drive_side = master.get_analog(ANALOG_RIGHT_X);
-		int left_x = master.get_analog(ANALOG_LEFT_X);
-
-		if (left_x != 0) {
-			drive_side = left_x;
-		}
-		strafe_drive = drive_side;
 
 		bool lift_down = master.get_digital(DIGITAL_L1);
 		bool lift_up = master.get_digital(DIGITAL_R1);
@@ -138,9 +128,10 @@ void opcontrol() {
 			} else {
 				current_lift_power -= 5;
 			}
+		} else {
+			current_lift_power = lift_target;
 		}
-		right_lift = current_lift_power;
-		left_lift = current_lift_power;
+		lift = current_lift_power;
 
 		bool claw_open = master.get_digital(DIGITAL_L2);
 		bool claw_close = master.get_digital(DIGITAL_R2);
