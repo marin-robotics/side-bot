@@ -13,8 +13,8 @@ pros::Motor claw(18);
 
 // Partner motors
 
-pros::Motor partner_left_drive(3);
-pros::Motor partner_right_drive(4);
+pros::Motor partner_left_drive(8);
+pros::Motor partner_right_drive(9, true);
 
 /**
  * A callback function for LLEMU's center button.
