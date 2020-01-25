@@ -158,12 +158,12 @@ void autonomous() {
 
 	claw = -20;
 
-	front_left_drive = 127;
-	back_left_drive = 127;
-	front_right_drive = -127;
-	back_right_drive = -127;
+	front_left_drive = 100;
+	back_left_drive = 100;
+	front_right_drive = -120;
+	back_right_drive = -120;
 
-	pros::delay(1050);
+	pros::delay(1150);
 
 	front_left_drive = 0;
 	front_right_drive = 0;
@@ -176,6 +176,22 @@ void autonomous() {
 	front_right_drive = 127;
 	back_left_drive = 127;
 	back_right_drive = 127;
+
+	pros::delay(750);
+
+	front_left_drive = 0;
+	front_right_drive = 0;
+	back_left_drive = 0;
+	back_right_drive = 0;
+	claw = 127;
+
+	pros::delay(500);
+
+	front_left_drive = -127;
+	front_right_drive = -127;
+	back_left_drive = -127;
+	back_right_drive = -127;
+	claw = 0;
 
 	pros::delay(500);
 
